@@ -1,0 +1,38 @@
+diff --git a/src/TerminalDisplay.cpp b/src/TerminalDisplay.cpp
+index 2235047..00e9008 100644
+--- a/src/TerminalDisplay.cpp
++++ b/src/TerminalDisplay.cpp
+@@ -632,6 +632,7 @@ void TerminalDisplay::drawBackground(QPainter& painter, const QRect& rect, const
+     painter.fillRect(scrollBarArea, _scrollBar->palette().background());
+ }
+ 
++#include <iostream>
+ void TerminalDisplay::drawCursor(QPainter& painter,
+                                  const QRect& rect,
+                                  const QColor& foregroundColor,
+@@ -674,10 +675,23 @@ void TerminalDisplay::drawCursor(QPainter& painter,
+                          cursorRect.bottom());
+ 
+     } else if (_cursorShape == Enum::IBeamCursor) {
+-        painter.drawLine(cursorRect.left(),
++
++    	int centre = cursorRect.left() + ((cursorRect.right() - cursorRect.left()) / 2);
++        painter.drawLine(centre,
+                          cursorRect.top(),
+-                         cursorRect.left(),
++                         centre,
+                          cursorRect.bottom());
++
++	centre = cursorRect.top() + ((cursorRect.bottom() - cursorRect.top()) / 3);
++    	std::cout << "Top = " << cursorRect.top() << "\n" << 
++    	"Bottom = " << cursorRect.bottom() << "\n" <<
++    	"Centre = " << centre << std::endl;
++	
++        painter.drawLine(cursorRect.left(),
++                         centre,
++                         cursorRect.right(),
++                         centre);
++
+     }
+ }
+ 
