@@ -1,0 +1,16 @@
+diff --git a/src/TerminalDisplay.cpp b/src/TerminalDisplay.cpp
+index 2235047..4165a99 100644
+--- a/src/TerminalDisplay.cpp
++++ b/src/TerminalDisplay.cpp
+@@ -673,6 +673,11 @@ void TerminalDisplay::drawCursor(QPainter& painter,
+                          cursorRect.right(),
+                          cursorRect.bottom());
+ 
++        painter.drawLine(cursorRect.left(),
++                         cursorRect.bottom(),
++                         cursorRect.left(),
++                         cursorRect.top());
++
+     } else if (_cursorShape == Enum::IBeamCursor) {
+         painter.drawLine(cursorRect.left(),
+                          cursorRect.top(),
