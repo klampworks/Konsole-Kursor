@@ -13,7 +13,7 @@ index a9fab40..fe4f722 100644
  
      /** This enum describes the behavior of triple click action . */
 diff --git a/src/TerminalDisplay.cpp b/src/TerminalDisplay.cpp
-index 2235047..00e9008 100644
+index 2235047..e75a381 100644
 --- a/src/TerminalDisplay.cpp
 +++ b/src/TerminalDisplay.cpp
 @@ -632,6 +632,7 @@ void TerminalDisplay::drawBackground(QPainter& painter, const QRect& rect, const
@@ -24,18 +24,18 @@ index 2235047..00e9008 100644
  void TerminalDisplay::drawCursor(QPainter& painter,
                                   const QRect& rect,
                                   const QColor& foregroundColor,
-@@ -674,10 +675,23 @@ void TerminalDisplay::drawCursor(QPainter& painter,
+@@ -678,6 +679,25 @@ void TerminalDisplay::drawCursor(QPainter& painter,
+                          cursorRect.top(),
+                          cursorRect.left(),
                           cursorRect.bottom());
- 
-     } else if (_cursorShape == Enum::IBeamCursor) {
--        painter.drawLine(cursorRect.left(),
++
++    } else if (_cursorShape == Enum::CustomCursor) {
 +
 +    	int centre = cursorRect.left() + ((cursorRect.right() - cursorRect.left()) / 2);
 +        painter.drawLine(centre,
-                          cursorRect.top(),
--                         cursorRect.left(),
++                         cursorRect.top(),
 +                         centre,
-                          cursorRect.bottom());
++                         cursorRect.bottom());
 +
 +	centre = cursorRect.top() + ((cursorRect.bottom() - cursorRect.top()) / 3);
 +    	std::cout << "Top = " << cursorRect.top() << "\n" << 
@@ -50,3 +50,16 @@ index 2235047..00e9008 100644
      }
  }
  
+diff --git a/src/ViewManager.cpp b/src/ViewManager.cpp
+index 0b43bb8..9a7997a 100644
+--- a/src/ViewManager.cpp
++++ b/src/ViewManager.cpp
+@@ -858,6 +858,8 @@ void ViewManager::applyProfileToView(TerminalDisplay* view , const Profile::Ptr
+         view->setKeyboardCursorShape(Enum::IBeamCursor);
+     else if (cursorShape == Enum::UnderlineCursor)
+         view->setKeyboardCursorShape(Enum::UnderlineCursor);
++    else if (cursorShape == Enum::CustomCursor)
++        view->setKeyboardCursorShape(Enum::CustomCursor);
+ 
+     // cursor color
+     if (profile->useCustomCursorColor()) {
