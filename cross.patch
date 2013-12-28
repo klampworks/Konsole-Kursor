@@ -1,3 +1,19 @@
+diff --git a/src/EditProfileDialog.ui b/src/EditProfileDialog.ui
+index 82298cf..66a1084 100644
+--- a/src/EditProfileDialog.ui
++++ b/src/EditProfileDialog.ui
+@@ -1109,6 +1109,11 @@
+                 <string comment="The shape of the cursor">Underline</string>
+                </property>
+               </item>
++              <item>
++               <property name="text">
++                <string comment="The shape of the cursor">Custom</string>
++               </property>
++              </item>
+              </widget>
+             </item>
+             <item>
 diff --git a/src/Enumeration.h b/src/Enumeration.h
 index a9fab40..fe4f722 100644
 --- a/src/Enumeration.h
