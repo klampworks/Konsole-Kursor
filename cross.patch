@@ -1,3 +1,17 @@
+diff --git a/src/Enumeration.h b/src/Enumeration.h
+index a9fab40..fe4f722 100644
+--- a/src/Enumeration.h
++++ b/src/Enumeration.h
+@@ -85,7 +85,8 @@ public:
+          */
+         IBeamCursor     = 1,
+         /** Draw a line underneath the cursor's position. */
+-        UnderlineCursor = 2
++        UnderlineCursor = 2,
++        CustomCursor = 3
+     };
+ 
+     /** This enum describes the behavior of triple click action . */
 diff --git a/src/TerminalDisplay.cpp b/src/TerminalDisplay.cpp
 index 2235047..00e9008 100644
 --- a/src/TerminalDisplay.cpp
