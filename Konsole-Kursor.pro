@@ -7,4 +7,5 @@ INCLUDEPATH += . \
 # Input
 HEADERS += 
 SOURCES += qtlua_test.cpp
-LIBS += -L/usr/local/lib/ -lqtlua
+LIBS += -L/usr/local/lib/ -lqtlua 
+QMAKE_CXXFLAGS += -fpermissive

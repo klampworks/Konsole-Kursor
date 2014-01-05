@@ -8,3 +8,4 @@ end
 
 hello()
 
+--my_string:show()
