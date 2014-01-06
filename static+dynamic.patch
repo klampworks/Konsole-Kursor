@@ -52,7 +52,7 @@ index a9fab40..a39083f 100644
  
      /** This enum describes the behavior of triple click action . */
 diff --git a/src/TerminalDisplay.cpp b/src/TerminalDisplay.cpp
-index 2235047..7080f62 100644
+index 2235047..9d22017 100644
 --- a/src/TerminalDisplay.cpp
 +++ b/src/TerminalDisplay.cpp
 @@ -72,6 +72,12 @@
@@ -103,9 +103,9 @@ index 2235047..7080f62 100644
 +		std::cout << e.to_qstring().toUtf8().constData() << std::endl;
 +	}
 +	
-+	/* Close the file. */
++	/* Close the file.  */
 +	file.close();
-+    } else if (_cursorShape == Enum::CustomCursorDynamic) {
++    } else if (_cursorShape == Enum::CustomCursorStatic) {
 +
 +	/* This is defined in CustomCursor.h */
 +    	CustomCursor::draw_cursor(painter, cursorRect);
