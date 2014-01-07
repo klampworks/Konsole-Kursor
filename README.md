@@ -1,7 +1,7 @@
 Konsole-Kursor
 ==============
 
-A patch for KDE Konsole to facilitate the drawing of arbitrary cursor shapes.
+An extension for KDE Konsole to facilitate the drawing of arbitrary cursor shapes.
 
 This project provides two alternative ways of achieving this: a static patch and a dynamic patch.
 
