@@ -16,6 +16,6 @@ Dynamic patch
 =
 This will add an extra "Custom (dynamic)" option to the cursor selection combobox in the profile settings dialogue. When this option is selected, the painting code will read in a script file and interpret the contents. The first language to be supported will be Lua. Konsole's QPainter object will be exposed to the scripting interface like it is with the static patch so the same painting logic will work for both approaches. 
 
-This approach introduces considerable overhead but it also means that konsole does not need to be recompiled or even restarted when the painting code is changed. This is ideal for experimenting with  ideals before committing a final design to the static approach.
+This approach introduces considerable overhead but it also means that konsole does not need to be recompiled or even restarted when the painting code is changed. This is ideal for experimenting with  ideas before committing a final design to the static approach.
 
 No releases yet as this is a work in progress. 
