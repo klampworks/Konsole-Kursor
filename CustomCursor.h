@@ -3,6 +3,8 @@
 
 namespace CustomCursor {
 
+	/* Enum for mapping distros to ascii codes for the 
+	 * ConkySymbols font family. */
 	enum distro {
 		tux = 'a',
 		tux_inv = 'A',
@@ -34,11 +36,14 @@ namespace CustomCursor {
 
 	void latin_cross(QPainter&, const QRect&);
 	void chara(QPainter&, const QRect&, const char*, const QString&);
+	void distro_logo(QPainter&, const QRect&, distro d);
 
 	inline void draw_cursor(QPainter &painter, const QRect &cursorRect) {
 
 		//latin_cross(painter, cursorRect);
-		chara(painter, cursorRect, "ConkySymbols", QString(gentoo));
+	//	chara(painter, cursorRect, "Kochi Gothic", QString("\u304B"));
+		chara(painter, cursorRect, "Kochi Gothic", QChar(12363));
+		//distro_logo(painter, cursorRect, gentoo);
 	}
 
 	inline void latin_cross(QPainter &painter, const QRect &cursorRect) {
@@ -79,7 +84,7 @@ namespace CustomCursor {
 			painter.setFont(font);
 		}
 
-		painter.drawText(cursorRect, Qt::AlignCenter, to_paint);
+		painter.drawText(cursorRect, Qt::AlignLeft, to_paint);
 
 		/* Restore the original font. */
 		if (!same_family) {
@@ -87,5 +92,12 @@ namespace CustomCursor {
 			painter.setFont(font);
 		}
 	}
+
+	inline void distro_logo(QPainter &painter, const QRect &cursorRect, 
+		distro d) {
+
+		chara(painter, cursorRect, "ConkySymbols", QString(d));
+	}
+
 }
 #endif
