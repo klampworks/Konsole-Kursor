@@ -3,13 +3,42 @@
 
 namespace CustomCursor {
 
+	enum distro {
+		tux = 'a',
+		tux_inv = 'A',
+		ubuntu = 'o',
+		ubuntu_inv = 'O',
+		suse = 'p',
+		suse_inv = 'P',
+		redhat = 'q',
+		redhat_inv = 'Q',
+		fedora = 'r',
+		fedora_inv = 'R',
+		debian = 's',
+		debian_inv = 'S',
+		arch = 't',
+		arch_inv = 'T',
+		mint = 'u',
+		mint_inv = 'U',
+		mandriva = 'v',
+		mandriva_inv = 'V',
+		noidea = 'w',
+		noidea_inv = 'W',
+		gentoo = 'x',
+		gentoo_inv = 'X',
+		FreeBSD = 'y',
+		FreeBSD_inv = 'Y',
+		pardus = 'z',
+		pardus_inv = 'Z'
+	};
+
 	void latin_cross(QPainter&, const QRect&);
 	void chara(QPainter&, const QRect&, const char*, const QString&);
 
 	inline void draw_cursor(QPainter &painter, const QRect &cursorRect) {
 
 		//latin_cross(painter, cursorRect);
-		chara(painter, cursorRect, "ConkySymbols", "A");
+		chara(painter, cursorRect, "ConkySymbols", QString(gentoo));
 	}
 
 	inline void latin_cross(QPainter &painter, const QRect &cursorRect) {
