@@ -9,7 +9,7 @@ namespace CustomCursor {
 	inline void draw_cursor(QPainter &painter, const QRect &cursorRect) {
 
 		//latin_cross(painter, cursorRect);
-		chara(painter, cursorRect, NULL, "A");
+		chara(painter, cursorRect, "ConkySymbols", "A");
 	}
 
 	inline void latin_cross(QPainter &painter, const QRect &cursorRect) {
@@ -45,8 +45,10 @@ namespace CustomCursor {
 		bool same_family;
 
 		/* If the new family is different then set it. */
-		if (same_family = (family && family != old_family))
+		if (same_family = (family && family != old_family)) {
 			font.setFamily(family);
+			painter.setFont(font);
+		}
 
 		painter.drawText(cursorRect, Qt::AlignCenter, to_paint);
 
