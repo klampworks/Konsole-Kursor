@@ -41,9 +41,8 @@ namespace CustomCursor {
 	inline void draw_cursor(QPainter &painter, const QRect &cursorRect) {
 
 		//latin_cross(painter, cursorRect);
-	//	chara(painter, cursorRect, "Kochi Gothic", QString("\u304B"));
-		chara(painter, cursorRect, "Kochi Gothic", QChar(12363));
-		//distro_logo(painter, cursorRect, gentoo);
+		//chara(painter, cursorRect, "Kochi Gothic", QChar(12363));
+		distro_logo(painter, cursorRect, gentoo);
 	}
 
 	inline void latin_cross(QPainter &painter, const QRect &cursorRect) {
