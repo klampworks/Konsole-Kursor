@@ -3,20 +3,12 @@
 #include <QApplication>
 #include <QtScript/QScriptEngine>
 #include <QtScript/QScriptValue>
- #include <QFile>
- #include <iostream>
-
-struct my_obj : public QObject {
-
-	void show() {
-		std::cout << "Hello from cpp." << std::endl;
-		}
-	
-};
+#include <QFile>
+#include <iostream>
+#include "my_obj.hpp"
 
 int main()
 {
-
 	my_obj obj;
 
 	QApplication app(0, NULL);
