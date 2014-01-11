@@ -69,6 +69,12 @@ namespace CustomCursor {
 	}
 
 	inline void drawChar(QPainter &painter, const QRect &cursorRect, 
+		const char *family, int &to_paint) {
+
+		drawChar(painter, cursorRect, family, QChar(to_paint));
+	}
+
+	inline void drawChar(QPainter &painter, const QRect &cursorRect, 
 		const char *family, const QString &to_paint) {
 
 		QFont font = painter.font();
