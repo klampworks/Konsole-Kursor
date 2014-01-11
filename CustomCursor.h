@@ -35,14 +35,14 @@ namespace CustomCursor {
 	};
 
 	void latin_cross(QPainter&, const QRect&);
-	void chara(QPainter&, const QRect&, const char*, const QString&);
-	void distro_logo(QPainter&, const QRect&, distro d);
+	void drawChar(QPainter&, const QRect&, const char*, const QString&);
+	void drawDistroLogo(QPainter&, const QRect&, distro d);
 
 	inline void draw_cursor(QPainter &painter, const QRect &cursorRect) {
 
 		//latin_cross(painter, cursorRect);
-		//chara(painter, cursorRect, "Kochi Gothic", QChar(12363));
-		distro_logo(painter, cursorRect, gentoo);
+		//drawChar(painter, cursorRect, "Kochi Gothic", QChar(12363));
+		drawDistroLogo(painter, cursorRect, gentoo);
 	}
 
 	inline void latin_cross(QPainter &painter, const QRect &cursorRect) {
@@ -68,7 +68,7 @@ namespace CustomCursor {
 			axis);
 	}
 
-	inline void chara(QPainter &painter, const QRect &cursorRect, 
+	inline void drawChar(QPainter &painter, const QRect &cursorRect, 
 		const char *family, const QString &to_paint) {
 
 		QFont font = painter.font();
@@ -92,10 +92,16 @@ namespace CustomCursor {
 		}
 	}
 
-	inline void distro_logo(QPainter &painter, const QRect &cursorRect, 
+	inline void drawDistroLogo(QPainter &painter, const QRect &cursorRect, 
 		distro d) {
 
-		chara(painter, cursorRect, "ConkySymbols", QString(d));
+		drawChar(painter, cursorRect, "ConkySymbols", QString(d));
+	}
+
+	inline void drawDistroLogo(QPainter &painter, const QRect &cursorRect, 
+		int d) {
+
+		drawChar(painter, cursorRect, "ConkySymbols", QString(d));
 	}
 
 }
