@@ -10,12 +10,14 @@ class PainterWrapper : public QObject {
 	Q_OBJECT
 
 	QPainter *painter;
+	QRect *cursorRect;
 
 	public:
-		PainterWrapper(QPainter &painter);
+		PainterWrapper(QPainter &painter, QRect &cursorRect);
 
 	public slots:
 		void drawLine(int x1, int y1, int x2, int y2);
+		void drawChar(QString family, QString to_paint);
 		void say_hello();
 };
 

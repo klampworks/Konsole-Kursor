@@ -1,13 +1,21 @@
 #include "CustomCursorDynamic.h"
+#include "CustomCursor.h"
 
-PainterWrapper::PainterWrapper(QPainter &painter)
+PainterWrapper::PainterWrapper(QPainter &painter, QRect &cursorRect)
 {
 	this->painter = &painter;
+	this->cursorRect = &cursorRect;
 }
 
 void PainterWrapper::say_hello() 
 {
 	std::cout << "Hello from cpp" << std::endl;
+}
+
+void PainterWrapper::drawChar(QString family, QString to_paint) 
+{
+    	CustomCursor::drawChar(*painter, *cursorRect, 
+		family.toUtf8().constData(), to_paint);
 }
 
 void PainterWrapper::drawLine(int x1, int y1, int x2, int y2)
