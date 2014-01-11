@@ -18,9 +18,20 @@ void PainterWrapper::drawChar(QString family, QString to_paint)
 		family.toUtf8().constData(), to_paint);
 }
 
+void PainterWrapper::drawChar(QString family, int to_paint) 
+{
+    	CustomCursor::drawChar(*painter, *cursorRect, 
+		family.toUtf8().constData(), to_paint);
+}
+
 void PainterWrapper::drawLine(int x1, int y1, int x2, int y2)
 {
 	painter->drawLine(x1, y1, x2, y2);
+}
+
+void PainterWrapper::drawDistroLogo(int distro) 
+{
+	CustomCursor::drawDistroLogo(*painter, *cursorRect, distro);
 }
 
 RectWrapper::RectWrapper(QRect &cursorRect) 
