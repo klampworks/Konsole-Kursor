@@ -1,0 +1,132 @@
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index bde2973..5b71416 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -122,13 +122,15 @@ set(konsoleprivate_SRCS ${sessionadaptors_SRCS}
+                         PrintOptions.cpp
+                         konsole_wcwidth.cpp
+                         WindowSystemInfo.cpp
++			CustomCursorDynamic.cpp
+                         ${CMAKE_CURRENT_BINARY_DIR}/org.kde.konsole.Window.xml
+                         ${CMAKE_CURRENT_BINARY_DIR}/org.kde.konsole.Session.xml)
+ set(konsole_LIBS ${KDE4_KPTY_LIBS}
+                  ${KDE4_KIO_LIBS}
+                  ${KDE4_KNOTIFYCONFIG_LIBS}
+                  ${QT_QTXML_LIBRARY}
+-                 ${X11_LIBRARIES})
++                 ${X11_LIBRARIES}
++		 QtScript)
+ 
+ if(HAVE_LIBKONQ)
+   set(konsole_LIBS ${konsole_LIBS} ${LIBKONQ_LIBRARY})
+diff --git a/src/EditProfileDialog.ui b/src/EditProfileDialog.ui
+index 82298cf..92ea9cc 100644
+--- a/src/EditProfileDialog.ui
++++ b/src/EditProfileDialog.ui
+@@ -1109,6 +1109,16 @@
+                 <string comment="The shape of the cursor">Underline</string>
+                </property>
+               </item>
++              <item>
++               <property name="text">
++                <string comment="The shape of the cursor">Custom Dynamic</string>
++               </property>
++              </item>
++              <item>
++               <property name="text">
++                <string comment="The shape of the cursor">Custom Static</string>
++               </property>
++              </item>
+              </widget>
+             </item>
+             <item>
+diff --git a/src/Enumeration.h b/src/Enumeration.h
+index a9fab40..a39083f 100644
+--- a/src/Enumeration.h
++++ b/src/Enumeration.h
+@@ -85,7 +85,9 @@ public:
+          */
+         IBeamCursor     = 1,
+         /** Draw a line underneath the cursor's position. */
+-        UnderlineCursor = 2
++        UnderlineCursor = 2,
++        CustomCursorDynamic = 3,
++        CustomCursorStatic = 4
+     };
+ 
+     /** This enum describes the behavior of triple click action . */
+diff --git a/src/TerminalDisplay.cpp b/src/TerminalDisplay.cpp
+index 2235047..1e93791 100644
+--- a/src/TerminalDisplay.cpp
++++ b/src/TerminalDisplay.cpp
+@@ -72,6 +72,14 @@
+ #include "SessionManager.h"
+ #include "Session.h"
+ 
++// Custom cursor painting.
++#include <QtScript/QScriptEngine>
++#include <QtScript/QScriptValue>
++#include <QFile>
++
++#include "CustomCursor.h"
++#include "CustomCursorDynamic.h"
++
+ using namespace Konsole;
+ 
+ #ifndef loc
+@@ -642,7 +650,7 @@ void TerminalDisplay::drawCursor(QPainter& painter,
+     if (_cursorBlinking)
+         return;
+ 
+-    QRect cursorRect = rect;
++    QRect cursorRect = rect; 
+     cursorRect.setHeight(_fontHeight - _lineSpacing - 1);
+ 
+     QColor cursorColor = _cursorColor.isValid() ? _cursorColor : foregroundColor;
+@@ -678,6 +686,31 @@ void TerminalDisplay::drawCursor(QPainter& painter,
+                          cursorRect.top(),
+                          cursorRect.left(),
+                          cursorRect.bottom());
++
++    } else if (_cursorShape == Enum::CustomCursorDynamic) {
++
++	QScriptEngine engine;
++
++	PainterWrapper wrapper(painter, cursorRect);
++	RectWrapper r_wrapper(cursorRect);
++
++	QScriptValue js_painter = engine.newQObject(&wrapper);
++        engine.globalObject().setProperty("painter", js_painter);
++
++	QScriptValue js_rect = engine.newQObject(&r_wrapper);
++        engine.globalObject().setProperty("cursorRect", js_rect);
++
++	QString script_file_name("CustomCursor.qs");
++	QFile script_file(script_file_name);
++	script_file.open(QIODevice::ReadOnly);
++	engine.evaluate(script_file.readAll(), script_file_name);
++	script_file.close();
++
++    } else if (_cursorShape == Enum::CustomCursorStatic) {
++
++	/* This is defined in CustomCursor.h */
++    	CustomCursor::draw_cursor(painter, cursorRect);
++    
+     }
+ }
+ 
+diff --git a/src/ViewManager.cpp b/src/ViewManager.cpp
+index 0b43bb8..590cdf9 100644
+--- a/src/ViewManager.cpp
++++ b/src/ViewManager.cpp
+@@ -858,6 +858,10 @@ void ViewManager::applyProfileToView(TerminalDisplay* view , const Profile::Ptr
+         view->setKeyboardCursorShape(Enum::IBeamCursor);
+     else if (cursorShape == Enum::UnderlineCursor)
+         view->setKeyboardCursorShape(Enum::UnderlineCursor);
++    else if (cursorShape == Enum::CustomCursorDynamic)
++        view->setKeyboardCursorShape(Enum::CustomCursorDynamic);
++    else if (cursorShape == Enum::CustomCursorStatic)
++        view->setKeyboardCursorShape(Enum::CustomCursorStatic);
+ 
+     // cursor color
+     if (profile->useCustomCursorColor()) {
