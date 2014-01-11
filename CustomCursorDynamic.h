@@ -30,6 +30,9 @@ class RectWrapper : public QObject {
 
 	public slots:
 		int top();
+		int bottom();
+		int left();
+		int right();
 
 };
 #endif

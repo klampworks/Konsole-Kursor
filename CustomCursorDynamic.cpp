@@ -13,7 +13,6 @@ void PainterWrapper::say_hello()
 void PainterWrapper::drawLine(int x1, int y1, int x2, int y2)
 {
 	painter->drawLine(x1, y1, x2, y2);
-	std::cout << "Hello from cpp" << std::endl;
 }
 
 RectWrapper::RectWrapper(QRect &cursorRect) 
@@ -24,4 +23,17 @@ RectWrapper::RectWrapper(QRect &cursorRect)
 int RectWrapper::top()
 {
 	return cursorRect->top();
+}
+
+int RectWrapper::bottom()
+{
+	return cursorRect->bottom();
+}
+int RectWrapper::left()
+{
+	return cursorRect->left();
+}
+int RectWrapper::right()
+{
+	return cursorRect->right();
 }
