@@ -18,6 +18,8 @@ class PainterWrapper : public QObject {
 	public slots:
 		void drawLine(int x1, int y1, int x2, int y2);
 		void drawChar(QString family, QString to_paint);
+		void drawChar(QString family, int to_paint);
+		void drawDistroLogo(int distro);
 		void say_hello();
 };
 
