@@ -19,3 +19,15 @@ This will add an extra "Custom (dynamic)" option to the cursor selection combobo
 This approach introduces considerable overhead but it also means that konsole does not need to be recompiled or even restarted when the painting code is changed. This is ideal for experimenting with  ideas before committing a final design to the static approach.
 
 No releases yet as this is a work in progress. 
+
+git clone git://anongit.kde.org/konsole
+cd konsole
+patch -p1 < konsole-kursor.patch
+cd build
+cmake ..
+make
+
+Modify build/src/CustomCursor.qs
+Run build/src/konsole
+It will look for CustomCursor.qs in its current directory.
+
